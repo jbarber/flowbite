@@ -7324,6 +7324,7 @@ var Modal = /** @class */ (function () {
             });
             this._initialized = true;
         }
+        this._backdropEl = document.getElementById(this._backdropElId());
     };
     Modal.prototype.destroy = function () {
         if (this._initialized) {
@@ -7339,10 +7340,14 @@ var Modal = /** @class */ (function () {
         this.destroy();
         this.removeInstance();
     };
+    Modal.prototype._backdropElId = function () {
+        return "data-modal-".concat(this._instanceId, "-backdrop");
+    };
     Modal.prototype._createBackdrop = function () {
         var _a;
         if (this._isHidden) {
             var backdropEl = document.createElement('div');
+            backdropEl.setAttribute("id", this._backdropElId());
             (_a = backdropEl.classList).add.apply(_a, this._options.backdropClasses.split(' '));
             document.querySelector('body').append(backdropEl);
             this._backdropEl = backdropEl;
