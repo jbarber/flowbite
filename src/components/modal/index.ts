@@ -59,6 +59,8 @@ class Modal implements ModalInterface {
             });
             this._initialized = true;
         }
+
+        this._backdropEl = document.getElementById(this._backdropElId());
     }
 
     destroy() {
@@ -78,9 +80,14 @@ class Modal implements ModalInterface {
         this.removeInstance();
     }
 
+    _backdropElId() {
+      return `data-modal-${this._instanceId}-backdrop`
+    }
+
     _createBackdrop() {
         if (this._isHidden) {
             const backdropEl = document.createElement('div');
+            backdropEl.setAttribute("id", this._backdropElId());
             backdropEl.classList.add(
                 ...this._options.backdropClasses.split(' ')
             );
